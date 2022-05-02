@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -39,40 +40,29 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  final _random = Random();
+  var generated = '';
+  // final _alpha = 'abcdefghijklmnopqrstuvwxyz';
+  int generateRandomNumber() {
+    return Random().nextInt(9);
+  }
+
+  String generateRandomString(int length) {
+    final _random = Random();
+    const _availableChars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    final randomString = List.generate(length,
+            (index) => _availableChars[_random.nextInt(_availableChars.length)])
+        .join();
+    // print(_availableChars.length);
+    generated = randomString;
+    return randomString;
+  }
+
   @override
   Widget build(BuildContext context) {
-    var number = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    var lowAlpha = [
-      'a',
-      'b',
-      'c',
-      'd',
-      'e',
-      'f',
-      'g',
-      'f',
-      'g',
-      'h',
-      'i',
-      'j',
-      'k',
-      'l',
-      'm',
-      'n',
-      'o',
-      'p',
-      'q',
-      'r',
-      's',
-      't',
-      'u',
-      'v',
-      'w',
-      'x',
-      'y',
-      'z'
-    ];
-
+    print(generated);
+    print('try');
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -82,18 +72,18 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'Generated:',
             ),
             Text(
-              '$_counter',
+              generated,
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        onPressed: (() => generateRandomString(5)),
+        tooltip: 'Generate',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
