@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  final _random = Random();
+  // final _random = Random();
   var generated = '';
   // final _alpha = 'abcdefghijklmnopqrstuvwxyz';
   int generateRandomNumber() {
@@ -61,8 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(generated);
-    print('try');
+    print(generateRandomString(10));
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
