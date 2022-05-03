@@ -32,15 +32,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int submittedNum = 0;
+  final numberController = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  // final _random = Random();
   var generated = '';
   // final _alpha = 'abcdefghijklmnopqrstuvwxyz';
   int generateRandomNumber() {
@@ -51,17 +45,26 @@ class _MyHomePageState extends State<MyHomePage> {
     final _random = Random();
     const _availableChars =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    final randomString = List.generate(length,
-            (index) => _availableChars[_random.nextInt(_availableChars.length)])
-        .join();
+    final randomString = List.generate(
+      length,
+      (index) => _availableChars[_random.nextInt(_availableChars.length)],
+    ).join();
     // print(_availableChars.length);
     generated = randomString;
     return randomString;
   }
 
   @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    numberController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(generateRandomString(10));
+    // print(generateRandomString(10));
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -77,13 +80,46 @@ class _MyHomePageState extends State<MyHomePage> {
               generated,
               style: Theme.of(context).textTheme.headline4,
             ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('UpperCase'),
+            ),
+            const SizedBox(
+              height: 8.0,
+            ),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('Number'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: 80,
+                child: TextField(
+                  controller: numberController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Length',
+                    hintText: 'Enter number',
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                generateRandomString(10);
+              },
+              child: const Text('Generate'),
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() => generateRandomString(5)),
-        tooltip: 'Generate',
-        child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
