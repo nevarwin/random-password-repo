@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Random Password Generator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -32,53 +32,54 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int submittedNum = 0;
-  final numberController = TextEditingController();
-
-  var generated = '';
-  // final _alpha = 'abcdefghijklmnopqrstuvwxyz';
-  int generateRandomNumber() {
-    return Random().nextInt(9);
-  }
-
-  String generateRandomString(int length) {
-    final _random = Random();
-    const _availableChars =
-        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    final randomString = List.generate(
-      length,
-      (index) => _availableChars[_random.nextInt(_availableChars.length)],
-    ).join();
-    // print(_availableChars.length);
-    generated = randomString;
-    return randomString;
-  }
+  final controller = TextEditingController();
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    numberController.dispose();
+    controller.dispose();
     super.dispose();
+  }
+
+  String generatePassword(
+    bool hasUpper,
+    bool hasNumbers,
+    bool hasSpecial,
+  ) {
+    const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+    const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numbers = '1234567890';
+    const special = '@#=+\$%&?(){}';
+    const length = 20;
+
+    String chars = '';
+    chars += lowerCase;
+    if (hasUpper) chars += upperCase;
+    if (hasNumbers) chars += numbers;
+    if (hasSpecial) chars += special;
+
+    return List.generate(
+      length,
+      (index) {
+        final indexRandom = Random().nextInt(chars.length); //0..25
+
+        return chars[indexRandom];
+      },
+    ).join('');
   }
 
   @override
   Widget build(BuildContext context) {
-    // print(generateRandomString(10));
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text(
               'Generated:',
-            ),
-            Text(
-              generated,
-              style: Theme.of(context).textTheme.headline4,
             ),
             const SizedBox(
               height: 20.0,
@@ -99,12 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: SizedBox(
                 width: 80,
                 child: TextField(
-                  controller: numberController,
-                  keyboardType: TextInputType.number,
+                  controller: controller,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Length',
-                    hintText: 'Enter number',
                   ),
                 ),
               ),
@@ -113,9 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10.0,
             ),
             ElevatedButton(
-              onPressed: () {
-                generateRandomString(10);
-              },
+              onPressed: () {},
               child: const Text('Generate'),
             ),
           ],
