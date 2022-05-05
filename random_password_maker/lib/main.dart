@@ -38,11 +38,11 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 
-  String generatePassword(
-    bool hasUpper,
-    bool hasNumbers,
-    bool hasSpecial,
-  ) {
+  String generatePassword({
+    bool hasUpper = false,
+    bool hasNumbers = false,
+    bool hasSpecial = false,
+  }) {
     const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
     const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const numbers = '1234567890';
