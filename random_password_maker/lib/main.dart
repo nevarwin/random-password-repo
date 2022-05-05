@@ -104,7 +104,11 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               const SizedBox(height: 12.0),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final password = generatePassword();
+
+                  controller.text = password;
+                },
                 child: const Text('Generate Password'),
                 style: ElevatedButton.styleFrom(primary: Colors.black),
               ),
