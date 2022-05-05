@@ -95,6 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 controller: controller,
                 readOnly: true,
                 decoration: InputDecoration(
+                  hintText: 'Generated Password',
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.copy),
