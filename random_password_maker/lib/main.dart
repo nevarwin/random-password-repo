@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -73,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,6 +90,27 @@ class _MyHomePageState extends State<MyHomePage> {
               TextField(
                 controller: controller,
                 readOnly: true,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.copy),
+                    onPressed: () {
+                      // Copying generated password to the clipboard
+                      final data = ClipboardData(text: controller.text);
+                      Clipboard.setData(data);
+
+                      const snackBar = SnackBar(
+                        content: Text(
+                          'Password Copied',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                  ),
+                ),
               ),
               const SizedBox(height: 8.0),
               // Upper case Button
