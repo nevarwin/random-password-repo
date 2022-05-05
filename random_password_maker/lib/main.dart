@@ -107,7 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(snackBar);
                     },
                   ),
                 ),
