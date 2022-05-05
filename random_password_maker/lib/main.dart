@@ -72,47 +72,44 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Flutter Random Password Generator'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Generated:',
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('UpperCase'),
-            ),
-            const SizedBox(
-              height: 8.0,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Number'),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: 80,
-                child: TextField(
-                  controller: controller,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                  ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Random Password Generator',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Generate'),
-            ),
-          ],
+              const SizedBox(height: 8.0),
+              TextField(
+                controller: controller,
+                readOnly: true,
+              ),
+              const SizedBox(height: 8.0),
+              // Upper case Button
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('UpperCase'),
+              ),
+              const SizedBox(height: 8.0),
+              // Number Button
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Number'),
+              ),
+              const SizedBox(height: 12.0),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Generate Password'),
+                style: ElevatedButton.styleFrom(primary: Colors.black),
+              ),
+            ],
+          ),
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
