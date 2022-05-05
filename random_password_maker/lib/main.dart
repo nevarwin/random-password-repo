@@ -40,9 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String generatePassword({
-    bool hasUpper = false,
-    bool hasNumbers = false,
-    bool hasSpecial = false,
+    bool? hasUppers,
+    bool? hasNumbers,
+    bool? hasSpecials,
   }) {
     const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
     const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -52,9 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     String chars = '';
     chars += lowerCase;
-    if (hasUpper) chars += upperCase;
-    if (hasNumbers) chars += numbers;
-    if (hasSpecial) chars += special;
+    if (hasUppers!) chars += upperCase;
+    if (hasNumbers!) chars += numbers;
+    if (hasSpecials!) chars += special;
 
     return List.generate(
       length,
@@ -68,6 +68,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool hasUpper = false;
+    bool hasNumber = false;
+    bool hasSpecial = false;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Random Password Generator'),
@@ -86,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 5.0),
               TextField(
                 controller: controller,
                 readOnly: true,
@@ -114,23 +118,38 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 5.0),
               // Upper case Button
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  hasUpper = !hasUpper;
+                },
                 child: const Text('UpperCase'),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 5.0),
               // Number Button
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  hasNumber = !hasNumber;
+                },
                 child: const Text('Number'),
+              ),
+              const SizedBox(height: 5.0),
+              // Special Button
+              ElevatedButton(
+                onPressed: () {
+                  hasSpecial = !hasSpecial;
+                },
+                child: const Text('Special'),
               ),
               const SizedBox(height: 12.0),
               ElevatedButton(
                 onPressed: () {
-                  final password = generatePassword();
-
+                  final password = generatePassword(
+                    hasUppers: hasUpper,
+                    hasNumbers: hasNumber,
+                    hasSpecials: hasSpecial,
+                  );
                   controller.text = password;
                 },
                 child: const Text('Generate Password'),
